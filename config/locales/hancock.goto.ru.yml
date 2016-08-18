@@ -1,0 +1,17 @@
+ru:
+  hancock:
+    goto: 'Переходы с сайта'
+  mongoid: &mongoid
+    models:
+      hancock/goto/transfer: "Переходы с сайта"
+    attributes:
+      hancock/goto/transfer:
+        url: URL перехода
+        recieved_url: Принятый URL
+        host: Хост перехода
+        referer: Страница, с которой перешли
+        source_ip: IP пользователя
+        creator: Пользователь
+
+  activerecord:
+    <<: *mongoid
