@@ -31,10 +31,14 @@ Add in config/routes.rb
 and in config/application.rb
 
 ```ruby
-  config.middleware.use Hancock::Goto::Middleware, {excluded_hosts: []}
+  config.middleware.use Hancock::Goto::Middleware
 ```
 
-Also you can specify excluded_hosts. This are hosts you don't want go through this system.
+Then execute
+
+    $ rails g hancock:goto:config
+
+and now you can edit config/initializers/hancock_goto.rb
 
 ## Development
 
