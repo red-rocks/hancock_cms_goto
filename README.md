@@ -1,6 +1,6 @@
 # HancockCmsGoto
 
-### Remaded from [EnjoyCMSGoto](https://github.com/red-rocks/enjoy_cms_goto)
+### Remaded from [EnjoyCMSGoto](https://github.com/enjoycreative/enjoy_cms_goto)
 
 URL redirect dispatcher (goto-system) for [HancockCMS](https://github.com/red-rocks/hancock_cms). You will know all about transfers to other sites.
 
