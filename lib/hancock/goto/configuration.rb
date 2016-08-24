@@ -1,10 +1,9 @@
 module Hancock
   module Goto
-    def self.configuration
-      @configuration ||= Configuration.new
-    end
-    def self.config
-      @configuration ||= Configuration.new
+    include Hancock::PluginConfiguration
+
+    def self.config_class
+      Configuration
     end
 
     def self.configure
