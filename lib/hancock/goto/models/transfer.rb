@@ -9,11 +9,16 @@ module Hancock::Goto
       include ManualSlug
 
       included do
+
+        def self.manager_can_add_actions
+          [:read]
+        end
+        def self.rails_admin_add_visible_actions
+          []
+        end
+        
       end
 
-      def self.manager_default_actions
-        [:read]
-      end
     end
   end
 end
