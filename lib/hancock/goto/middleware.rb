@@ -14,8 +14,10 @@ module Hancock::Goto
       del_attrs:      'data-hancock-goto-del-attrs'
     }
 
-    REL_ATTRS = ATTRS
+    REL_ATTRS = ATTRS.dup
     REL_ATTRS.delete(:disabled)
+    ATTRS.freeze
+    REL_ATTRS.freeze
 
     def initialize(app, options = {})
       @app = app

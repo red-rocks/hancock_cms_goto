@@ -12,7 +12,11 @@ module Hancock::Goto
           field :referer,       type: String
           field :source_ip,     type: String
 
-          belongs_to :session, class_name: "MongoidStore::Session"
+          if Hancock.rails4?
+            belongs_to :session, class_name: "MongoidStore::Session"
+          else
+            belongs_to :session, class_name: "MongoidStore::Session", optional: true
+          end
           field :session_data, type: BSON::Binary
         end
 

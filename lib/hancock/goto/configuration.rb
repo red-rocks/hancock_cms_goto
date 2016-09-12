@@ -22,6 +22,10 @@ module Hancock
       attr_accessor :add_noopener
       attr_accessor :del_attrs
 
+      attr_accessor :model_settings_support
+      attr_accessor :user_abilities_support
+      attr_accessor :ra_comments_support
+
       def initialize
         @css_selector = "a[href]"
         @href_regex = /^(https?:)?\/\//i
@@ -32,6 +36,10 @@ module Hancock
         @add_noreferrer = true
         @add_noopener = true
         @del_attrs = true
+
+        @model_settings_support = defined?(RailsAdminModelSettings)
+        @user_abilities_support = defined?(RailsAdminUserAbilities)
+        @ra_comments_support = defined?(RailsAdminComments)
       end
     end
   end
