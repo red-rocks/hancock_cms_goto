@@ -28,6 +28,11 @@ module Hancock::Goto
           Marshal.load(session_data_extract) if session_data
         end
 
+        def set_session(_session)
+          self.session_id = _session.id
+          self.session_data = BSON::Binary.new(Marshal.dump(_session.to_hash))
+        end
+
       end
     end
   end

@@ -14,8 +14,7 @@ module Hancock::Goto
         @transfer.referer = referer.to_s
         @transfer.source_ip = request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip
         if Hancock::Goto.mongoid?
-          @transfer.session_id = session.id
-          @transfer.session_data = BSON::Binary.new(Marshal.dump(session.to_hash))
+          @transfer.set_session(session)
         end
         @transfer.save
 
