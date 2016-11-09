@@ -17,7 +17,7 @@ module Hancock::Goto::Decorators
       # def session_data_unpack
       #   Marshal.load(session_data_extract) if session_data
       # end
-      # 
+      #
       # def set_session(_session)
       #   self.session_id = _session.id
       #   self.session_data = BSON::Binary.new(Marshal.dump(_session.to_hash))
@@ -31,20 +31,20 @@ module Hancock::Goto::Decorators
       # def self.rails_admin_add_config(config)
       #   #super(config)
       # end
-
-      # def admin_can_user_defined_actions
+      #
+      # def self.admin_can_user_defined_actions
       #   [].freeze
       # end
-      # def admin_cannot_user_defined_actions
+      # def self.admin_cannot_user_defined_actions
       #   [].freeze
       # end
-      # def manager_can_user_defined_actions
+      # def self.manager_can_user_defined_actions
       #   [].freeze
       # end
-      # def manager_cannot_user_defined_actions
+      # def self.manager_cannot_user_defined_actions
       #   [].freeze
       # end
-      # def rails_admin_user_defined_visible_actions
+      # def self.rails_admin_user_defined_visible_actions
       #   [].freeze
       # end
     end
