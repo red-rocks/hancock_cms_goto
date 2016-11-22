@@ -1,12 +1,12 @@
 require 'rails/generators'
 
 module Hancock::Goto::Controllers
-  class TransferGenerator < Rails::Generators::Base
+  class TransfersGenerator < Rails::Generators::Base
     source_root File.expand_path('../templates', __FILE__)
     argument :class_name_arg, type: :string, default: ""
 
     desc 'Hancock::Goto Transfer Controller generator'
-    def transfer
+    def transfers
       template 'transfers.erb', "app/controllers/#{file_name}.rb"
     end
 
