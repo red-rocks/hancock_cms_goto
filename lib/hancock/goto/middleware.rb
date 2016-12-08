@@ -31,7 +31,6 @@ module Hancock::Goto
 
       if should_process?(status, headers)
         begin
-          _body = response.body
           content = extract_content(response)
           doc = ::Nokogiri::HTML(content)
           array = doc.css(Hancock::Goto.config.css_selector)
@@ -60,8 +59,8 @@ module Hancock::Goto
           headers['content-length'] = bytesize(content).to_s
           response = [content]
         rescue Exception => ex
-          puts ex.message
-          puts ex.backtrace
+          # puts ex.message
+          # puts ex.backtrace
         end
       end
 
@@ -77,7 +76,7 @@ module Hancock::Goto
     end
 
     def extract_content(response)
-      response.body
+      response.is_a?(Array) ? response.first : response.body
     end
 
     def check_attr(a, attr_name)
