@@ -4,6 +4,7 @@ require 'rack'
 
 module Hancock::Goto
   class Middleware
+    include Rack::Utils
 
     ATTRS = {
       disabled:       'data-hancock-goto-disabled',
@@ -25,20 +26,21 @@ module Hancock::Goto
     end
 
     def call(env)
-      status, headers, body = @app.call(env)
+      status, headers, response = @app.call(env)
+      headers = HeaderHash.new(headers)
 
-      if headers['Content-Type'].to_s.include?('text/html')
+      if should_process?(status, headers)
         begin
-          _body = body.body
-          _body.force_encoding("UTF-8")
-          doc = Nokogiri::HTML.fragment(_body)
+          _body = response.body
+          content = extract_content(response)
+          doc = ::Nokogiri::HTML(content)
           array = doc.css(Hancock::Goto.config.css_selector)
+
           doc.css(Hancock::Goto.config.css_selector).each do |a|
             if (!a[ATTRS[:disabled]].blank? and !["0", "false", "no"].include?(a[ATTRS[:disabled]]))
               del_attrs(a)
               next
             end
-
             _href = a['href']
             if _href =~ Hancock::Goto.config.href_regex
               begin
@@ -53,15 +55,31 @@ module Hancock::Goto
               end
             end
           end
-          return [status, headers, [doc.to_html]]
-        rescue
+
+          content = doc.to_html
+          headers['content-length'] = bytesize(content).to_s
+          response = [content]
+        rescue Exception => ex
+          puts ex.message
+          puts ex.backtrace
         end
       end
 
-      [status, headers, body]
+      [status, headers, response]
     end
 
     private
+    def should_process?(status, headers)
+      !STATUS_WITH_NO_ENTITY_BODY.include?(status) &&
+         !headers['transfer-encoding'] &&
+          headers['content-type'] &&
+          headers['content-type'].include?('text/html')
+    end
+
+    def extract_content(response)
+      response.body
+    end
+
     def check_attr(a, attr_name)
       Hancock::Goto.config.send(attr_name) or (!a[ATTRS[attr_name]].blank? and !["0", "false", "no"].include?(a[ATTRS[attr_name]]))
     end
