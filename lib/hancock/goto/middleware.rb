@@ -29,7 +29,13 @@ module Hancock::Goto
       status, headers, response = @app.call(env)
       headers = HeaderHash.new(headers)
 
-      if should_process?(status, headers)
+      if should_process?(status, headers, env)
+        puts "goto processed"
+        puts "goto processed"
+        puts "goto processed"
+        puts "goto processed"
+        puts "goto processed"
+        puts "goto processed"
         begin
           content = extract_content(response)
           doc = ::Nokogiri::HTML(content)
@@ -68,9 +74,11 @@ module Hancock::Goto
     end
 
     private
-    def should_process?(status, headers)
-      !STATUS_WITH_NO_ENTITY_BODY.include?(status) &&
-         !headers['transfer-encoding'] &&
+    def should_process?(status, headers, env)
+      cond = (env['hancock_goto_replace'].nil? || (env['hancock_goto_replace'] != false))
+      cond &&
+        !STATUS_WITH_NO_ENTITY_BODY.include?(status) &&
+          !headers['transfer-encoding'] &&
           headers['content-type'] &&
           headers['content-type'].include?('text/html')
     end
