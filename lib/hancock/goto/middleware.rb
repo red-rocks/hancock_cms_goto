@@ -30,12 +30,6 @@ module Hancock::Goto
       headers = HeaderHash.new(headers)
 
       if should_process?(status, headers, env)
-        puts "goto processed"
-        puts "goto processed"
-        puts "goto processed"
-        puts "goto processed"
-        puts "goto processed"
-        puts "goto processed"
         begin
           content = extract_content(response)
           doc = ::Nokogiri::HTML(content)
