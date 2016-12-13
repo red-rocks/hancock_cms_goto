@@ -12,7 +12,7 @@ module Hancock::Goto::Models
         copied = true
         copy_file "#{c}.rb", "app/models/concerns/hancock/goto/decorators/#{c}.rb"
       end
-      puts "U need to set controller`s name. One of this: #{permitted_models.join(", ")}." unless copied
+      puts "U need to set models`s name. One of this: #{permitted_models.join(", ")}." unless copied
     end
 
     private
