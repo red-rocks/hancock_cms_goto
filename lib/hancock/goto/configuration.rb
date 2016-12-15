@@ -37,9 +37,9 @@ module Hancock
         @add_noopener = true
         @del_attrs = true
 
-        @model_settings_support = defined?(RailsAdminModelSettings)
-        @user_abilities_support = defined?(RailsAdminUserAbilities)
-        @ra_comments_support = defined?(RailsAdminComments)
+        @model_settings_support = !!defined?(RailsAdminModelSettings)
+        @user_abilities_support = !!defined?(RailsAdminUserAbilities)
+        @ra_comments_support = !!defined?(RailsAdminComments)
       end
     end
   end
