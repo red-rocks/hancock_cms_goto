@@ -41,6 +41,18 @@ module Hancock
         @user_abilities_support = !!defined?(RailsAdminUserAbilities)
         @ra_comments_support = !!defined?(RailsAdminComments)
       end
+
+      def default_html_options
+        return @default_html_options if @default_html_options
+        @default_html_options = {target: :_blank}
+        _rel = []
+        _rel << 'nofollow' if Hancock::Goto.config.add_nofollow
+        _rel << 'noindex' if Hancock::Goto.config.add_noindex
+        _rel << 'noreferrer' if Hancock::Goto.config.add_noreferrer
+        _rel << 'noopener' if Hancock::Goto.config.add_noopener
+        @default_html_options[:rel] = _rel.join(" ")
+        @default_html_options
+      end
     end
   end
 end

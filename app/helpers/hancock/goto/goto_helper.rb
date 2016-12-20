@@ -4,9 +4,9 @@ module Hancock::Goto::GotoHelper
     html_options, options, name = options, name, block if block_given?
     options ||= {}
 
-    options.merge!({only_path: false}) if options.is_a?(Hash)
+    options.reverse_merge!({only_path: false}) if options.is_a?(Hash)
     options = {controller: "hancock/goto/transfers", action: 'index', url: url_for(options)}
-    html_options.merge!({target: :_blank}) if html_options.is_a?(Hash)
+    html_options.reverse_merge!(Hancock::Goto.config.default_html_options) if html_options.is_a?(Hash)
 
     if block_given?
       link_to(options, html_options, &block)
