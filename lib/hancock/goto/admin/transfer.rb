@@ -58,10 +58,18 @@ module Hancock::Goto
           end
           field :session_id do
             searchable true
+            visible do
+              render_object = (bindings[:controller] || bindings[:view])
+              render_object and render_object.current_user.admin?
+            end
           end
           field :session_data_unpack do
             searchable true
             read_only true
+            visible do
+              render_object = (bindings[:controller] || bindings[:view])
+              render_object and render_object.current_user.admin?
+            end
           end
 
           if block_given?
