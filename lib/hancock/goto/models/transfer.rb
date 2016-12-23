@@ -13,7 +13,7 @@ module Hancock::Goto
         def self.manager_can_default_actions
           [:show, :read].freeze
         end
-        def manager_cannot_actions
+        def self.manager_cannot_actions
           [:new, :create, :edit, :update].freeze
         end
 
