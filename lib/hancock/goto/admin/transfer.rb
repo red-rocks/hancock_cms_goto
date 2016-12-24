@@ -1,12 +1,18 @@
 module Hancock::Goto
   module Admin
     module Transfer
-      def self.config(fields = {})
+      def self.config(nav_label = nil, fields = {})
+        if nav_label.is_a?(Hash)
+          nav_label, fields = nav_label[:nav_label], nav_label
+        elsif nav_label.is_a?(Array)
+          nav_label, fields = nil, nav_label
+        end
+
         Proc.new {
           if defined?(Hancock::Feedback)
-            navigation_label I18n.t('hancock.feedback')
+            navigation_label nav_label || I18n.t('hancock.feedback')
           else
-            navigation_label I18n.t('hancock.goto')
+            navigation_label nav_label || I18n.t('hancock.goto')
           end
 
           field :creator do
@@ -71,6 +77,8 @@ module Hancock::Goto
               render_object and render_object.current_user.admin?
             end
           end
+
+          Hancock::RailsAdminGroupPatch::hancock_cms_group(self, fields)
 
           if block_given?
             yield self

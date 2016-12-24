@@ -33,7 +33,7 @@ module Hancock
 
         @add_nofollow = true
         @add_noindex = true
-        @add_noreferrer = true
+        @add_noreferrer = false
         @add_noopener = true
         @del_attrs = true
 
