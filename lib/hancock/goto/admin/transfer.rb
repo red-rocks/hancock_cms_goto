@@ -23,7 +23,7 @@ module Hancock::Goto
                 creator = bindings[:object].creator
                 model_name = creator.class.to_param.gsub("::", "~").underscore
                 _url = route.rails_admin.show_path(model_name: model_name, id: creator._id)
-                route.link_to(creator.name_for_hancock_cms, _url, class: "creator_link")
+                route.link_to(creator, _url, class: "creator_link")
               end
             end
           end
