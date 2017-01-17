@@ -1,0 +1,8 @@
+= hidden_field_tag nil, @transfer.url, id: 'redir'
+javascript:
+  window.opener=null;
+  window.location.replace(document.getElementById('redir').value);
+noscript
+  meta content="0;URL='#{@transfer.url}'" http-equiv="refresh"
+  = form_tag @transfer.url, method: "GET", authenticity_token: false, enforce_utf8: false do
+    = submit_tag "Continue"

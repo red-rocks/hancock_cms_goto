@@ -26,6 +26,8 @@ module Hancock
       attr_accessor :user_abilities_support
       attr_accessor :ra_comments_support
 
+      attr_accessor :method
+
       def initialize
         @css_selector = "a[href]"
         @href_regex = /^(https?:)?\/\//i
@@ -40,6 +42,8 @@ module Hancock
         @model_settings_support = !!defined?(RailsAdminModelSettings)
         @user_abilities_support = !!defined?(RailsAdminUserAbilities)
         @ra_comments_support = !!defined?(RailsAdminComments)
+
+        @method = :render_view
       end
 
       def default_html_options

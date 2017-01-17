@@ -18,7 +18,14 @@ module Hancock::Goto
         end
         @transfer.save
 
-        redirect_to @transfer.url, code: 303
+        case Hancock::Goto.config.method.to_sym
+        when :render_view
+          render layout: false
+        when :redirect_from_controller
+          redirect_to @transfer.url, code: 303
+        else
+          redirect_to @transfer.url, code: 303
+        end
       end
 
       def transfer_class

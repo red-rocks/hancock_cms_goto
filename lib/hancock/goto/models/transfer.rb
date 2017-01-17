@@ -10,12 +10,19 @@ module Hancock::Goto
 
       included do
 
+        def self.rails_admin_name_synonyms
+          "".freeze
+        end
+        def self.rails_admin_navigation_icon
+          ''.freeze
+        end
+
         # def self.manager_can_default_actions
         #   # [:show, :read].freeze
         #   super - [:new, :create, :delete, :destroy]
         # end
         def self.manager_cannot_add_actions
-          [:new, :create, :delete, :destroy, :edit, :update]
+          [:new, :create, :delete, :destroy, :edit, :update].freeze
         end
 
         def self.manager_can_add_actions

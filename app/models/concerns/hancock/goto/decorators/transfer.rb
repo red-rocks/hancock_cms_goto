@@ -24,8 +24,15 @@ module Hancock::Goto::Decorators
       # end
 
       ############# rails_admin ##############
+      # def self.rails_admin_name_synonyms
+      #   "".freeze
+      # end
+      # def self.rails_admin_navigation_icon
+      #   ''.freeze
+      # end
+      #
       # def self.rails_admin_add_fields
-      #   [] #super
+      #   [].freeze #super
       # end
       #
       # def self.rails_admin_add_config(config)
