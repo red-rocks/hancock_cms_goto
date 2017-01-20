@@ -21,6 +21,9 @@ module Hancock::Goto
         #   # [:show, :read].freeze
         #   super - [:new, :create, :delete, :destroy]
         # end
+        def self.admin_cannot_actions
+          [:new, :create].freeze
+        end
         def self.manager_cannot_add_actions
           [:new, :create, :delete, :destroy, :edit, :update].freeze
         end
