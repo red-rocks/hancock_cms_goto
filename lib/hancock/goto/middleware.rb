@@ -32,32 +32,33 @@ module Hancock::Goto
       if should_process?(status, headers, env)
         begin
           content = extract_content(response)
-          doc = ::Nokogiri::HTML(content)
-          array = doc.css(Hancock::Goto.config.css_selector)
+          if Hancock::Goto.config.href_attr_regex and content =~ Hancock::Goto.config.href_attr_regex
+            doc = ::Nokogiri::HTML(content)
 
-          doc.css(Hancock::Goto.config.css_selector).each do |a|
-            if (!a[ATTRS[:disabled]].blank? and !["0", "false", "no"].include?(a[ATTRS[:disabled]]))
-              del_attrs(a)
-              next
-            end
-            _href = a['href']
-            if _href =~ Hancock::Goto.config.href_regex
-              begin
-                _host = Addressable::URI.parse(_href).host
-                unless Hancock::Goto.config.excluded_hosts.include?(_host)
-                  a['href'] = Rails.application.routes.url_helpers.hancock_goto_path(url: _href)
-                  a['target'] = '_blank' if a['target'].blank?
-                  set_rel_attribute(a)
-                  del_attrs(a)
+            doc.css(Hancock::Goto.config.css_selector).each do |a|
+              if (!a[ATTRS[:disabled]].blank? and !["0", "false", "no"].include?(a[ATTRS[:disabled]]))
+                del_attrs(a)
+                next
+              end
+              _href = a['href']
+              if _href =~ Hancock::Goto.config.href_regex
+                begin
+                  _host = Addressable::URI.parse(_href).host
+                  unless Hancock::Goto.config.excluded_hosts.include?(_host)
+                    a['href'] = Rails.application.routes.url_helpers.hancock_goto_path(url: _href)
+                    a['target'] = '_blank' if a['target'].blank?
+                    set_rel_attribute(a)
+                    del_attrs(a)
+                  end
+                rescue
                 end
-              rescue
               end
             end
-          end
 
-          content = doc.to_html
-          headers['content-length'] = bytesize(content).to_s
-          response = [content]
+            content = doc.to_html
+            headers['content-length'] = bytesize(content).to_s
+            response = [content]
+          end
         rescue Exception => ex
           # puts ex.message
           # puts ex.backtrace

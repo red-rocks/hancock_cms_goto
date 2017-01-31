@@ -14,6 +14,7 @@ module Hancock
 
       attr_accessor :css_selector
       attr_accessor :href_regex
+      attr_accessor :href_attr_regex
       attr_accessor :excluded_hosts
 
       attr_accessor :add_nofollow
@@ -31,6 +32,7 @@ module Hancock
       def initialize
         @css_selector = "a[href]"
         @href_regex = /^(https?:)?\/\//i
+        @href_attr_regex = /\shref=[\'\"](https?:)?\/\//i
         @excluded_hosts = []
 
         @add_nofollow = true
