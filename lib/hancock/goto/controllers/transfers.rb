@@ -12,17 +12,14 @@ module Hancock::Goto
           return false
         end
 
-        _params = params.clone
-        _session = session.clone
-        _request = request.clone
-        Thread.new do
+        Thread.new(params.clone, session.clone, request.clone, transfer_class, @url) do |_params, _session, _request, transfer_class, url|
           begin
             referer = (_request.referer ? Addressable::URI.parse(_request.referer) : nil) rescue nil
 
             @transfer = transfer_class.new
             @transfer.recieved_url = _params[:url]
-            @transfer.url = @url.to_s
-            @transfer.host = @url.host.to_s if @url
+            @transfer.url = url.to_s
+            @transfer.host = url.host.to_s if url
             @transfer.referer = referer.to_s
             @transfer.source_ip = _request.env['HTTP_X_FORWARDED_FOR'] || _request.remote_ip
             if Hancock::Goto.mongoid?
