@@ -17,7 +17,7 @@ module Hancock::Goto
           else
             belongs_to :session, class_name: "MongoidStore::Session", optional: true
 
-            if relations.has_key?("updater")
+            if relations.has_key?("updater") and defined?(::Mongoid::History)
               belongs_to :updater, class_name: ::Mongoid::History.modifier_class_name, optional: true, validate: false
               _validators.delete(:updater)
               _validate_callbacks.each do |callback|
@@ -28,25 +28,25 @@ module Hancock::Goto
             end
           end
           field :session_data, type: BSON::Binary
+
+          def session_data_extract
+            session_data.data if session_data
+          end
+
+          def session_data_unpack
+            Marshal.load(session_data_extract) if session_data
+          end
+
+          def set_session(_session)
+            self.session_id = _session.id
+            self.session_data = ::BSON::Binary.new(Marshal.dump(_session.to_hash))
+          end
         end
 
         class_methods do
           def track_history?
             false
           end
-        end
-
-        def session_data_extract
-          session_data.data if session_data
-        end
-
-        def session_data_unpack
-          Marshal.load(session_data_extract) if session_data
-        end
-
-        def set_session(_session)
-          self.session_id = _session.id
-          self.session_data = BSON::Binary.new(Marshal.dump(_session.to_hash))
         end
 
       end
