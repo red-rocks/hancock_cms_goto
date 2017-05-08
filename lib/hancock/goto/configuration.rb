@@ -50,7 +50,7 @@ module Hancock
 
       def default_html_options
         return @default_html_options if @default_html_options
-        @default_html_options = {target: :_blank}
+        @default_html_options = {target: :_blank, "data-gotolink": true}
         _rel = []
         _rel << 'nofollow' if Hancock::Goto.config.add_nofollow
         _rel << 'noindex' if Hancock::Goto.config.add_noindex
