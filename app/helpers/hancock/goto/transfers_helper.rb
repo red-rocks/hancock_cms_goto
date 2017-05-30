@@ -18,7 +18,7 @@ module Hancock::Goto::TransfersHelper
     if html_options.is_a?(Hash)
       html_options['data-href'] ||= target_url
       html_options['data-gotohref'] ||= goto_url
-      html_options['onclick'] ||= "var link = this.cloneNode(true); link.href = link.getAttribute('data-gotohref'); link.click(); return false;"
+      html_options['onclick'] ||= "var link = this.cloneNode(true); link.href = link.getAttribute('data-gotohref'); link.onclick = null; link.click(); return false;"
       html_options.reverse_merge!(Hancock::Goto.config.default_html_options)
     end
 
