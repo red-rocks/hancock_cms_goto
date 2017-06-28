@@ -3,7 +3,7 @@ module ActionDispatch::Routing
 
     def hancock_cms_goto_routes(no_params = true)
       if no_params.is_a?(Hash)
-        no_params = no_params[:no_params] || true
+        no_params = (no_params[:no_params].present? ? no_params[:no_params] : true)
       end
 
       scope module: 'hancock' do
