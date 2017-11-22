@@ -1,9 +1,9 @@
 module ActionDispatch::Routing
   class Mapper
 
-    def hancock_cms_goto_routes(no_params = true)
+    def hancock_cms_goto_routes(no_params = false)
       if no_params.is_a?(Hash)
-        no_params = (no_params[:no_params].present? ? no_params[:no_params] : true)
+        no_params = (no_params[:no_params].present? ? no_params[:no_params] : false)
       end
 
       scope module: 'hancock' do
