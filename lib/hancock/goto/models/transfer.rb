@@ -14,9 +14,6 @@ module Hancock::Goto
         def rails_admin_name_synonyms
           "".freeze
         end
-        def rails_admin_navigation_icon
-          'fa fa-external-link'.freeze
-        end
 
         # def manager_can_default_actions
         #   # [:show, :read].freeze

@@ -9,6 +9,8 @@ module Hancock::Goto
         end
 
         Proc.new {
+          navigation_icon 'mdi mdi-open-in-new'
+
           if defined?(Hancock::Feedback)
             navigation_label nav_label || I18n.t('hancock.feedback')
           else
