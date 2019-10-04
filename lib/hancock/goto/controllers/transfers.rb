@@ -6,7 +6,13 @@ module Hancock::Goto
       def index
         begin
           @url = Addressable::URI.heuristic_parse(params[:url])
-          @target_url = @url.to_s
+          unless @url.nil?
+            @target_url = @url.to_s
+          end
+          if @target_url.empty?
+            redirect_to root_path
+            return false
+          end
         rescue
           redirect_to root_path
           return false
